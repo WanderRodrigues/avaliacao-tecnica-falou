@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View" />
+        <import type="com.falou.avaliacao_tecnica_falou.utils.Status" />
+
+        <variable
+            name="viewModel"
+            type="com.falou.avaliacao_tecnica_falou.ui.search_word.SearchWordViewModel" />
+        <variable
+            name="onCLickSearch"
+            type="android.view.View.OnClickListener" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:focusableInTouchMode="true"
+        android:gravity="center">
+
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/bg_white"
+            android:gravity="center"
+            android:popupBackground="@drawable/bg_white"
+            android:popupElevation="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/editWord"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:fontFamily="@font/roboto_condensed_bold"
+            android:gravity="center"
+            android:hint="@string/type_word"
+            android:inputType="textPersonName"
+            android:textColor="@color/colorPrimary"
+            android:textColorHint="@color/colorPrimary_50"
+            android:textCursorDrawable="@drawable/cursor"
+            android:textSize="32dp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@+id/button3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spinner" />
+
+        <Button
+            android:id="@+id/button3"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="27dp"
+            android:layout_marginEnd="27dp"
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/bg_button"
+            android:fontFamily="@font/roboto_condensed_bold"
+            android:text="@string/button_search"
+            android:textSize="18dp"
+            android:visibility="@{viewModel.isVisibleButton()? View.VISIBLE : View.GONE}"
+            android:onClick="@{onCLickSearch}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

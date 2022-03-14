@@ -1,3 +1,22 @@
 <resources>
     <string name="app_name">avaliacao-tecnica-falou</string>
+
+    <!-- Splash Screen -->
+    <string name="by">by Wr It. Solution\'s</string>
+
+
+    <!-- SearchWord screen -->
+    <string name="type_word">Type a word...</string>
+    <string name="button_search">SEARCH</string>
+
+    <!-- Dictionary screen -->
+    <string name="that_s_it_for_education">That’s it for “%s”!</string>
+    <string name="try_another_search_now">Try another search now!</string>
+    <string name="word_not_found">Word not found</string>
+    <string name="button_new_search">NEW SEARCH</string>
+
+    <!-- Subscribe screen -->
+    <string name="subtitle_subscribe">Try 7 Days Free, then only $19,99 per year. Cancel anytime.</string>
+    <string name="title_subscribe">Subscribe now to get %s searches and full access to %s.</string>
+    <string name="button_subscribe">SUBSCRIBE</string>
 </resources>

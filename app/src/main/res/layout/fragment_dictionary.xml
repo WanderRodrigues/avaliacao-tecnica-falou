@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+        <import type="com.falou.avaliacao_tecnica_falou.utils.Status" />
+
+        <variable
+            name="viewModel"
+            type="com.falou.avaliacao_tecnica_falou.ui.dictionary.DictionaryViewModel" />
+
+        <variable
+            name="onCLickSearch"
+            type="android.view.View.OnClickListener" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white">
+
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingStart="30dp"
+                android:paddingEnd="27dp"
+                app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="37dp"
+                    android:fontFamily="@font/roboto_condensed_bold"
+                    android:text="@{viewModel.title}"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="45dp"
+                    tools:text="Education" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="13dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/imgSound"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="11dp"
+                        android:background="?android:attr/selectableItemBackground"
+                        android:clickable="@{!viewModel.isPlaying()}"
+                        android:src="@drawable/ic_sound"
+                        android:visibility="@{viewModel.hasSound ? View.VISIBLE : View.GONE}" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_condensed_bold"
+                        android:text="@{viewModel.phoneticSpelling}"
+                        android:textColor="@color/colorPrimary_40"
+                        android:textSize="22dp"
+                        tools:text="/ˌedʒuˈkeɪʃn/" />
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerDictionary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    tools:itemCount="1"
+                    tools:listitem="@layout/item_dictionary" />
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/colorPrimary_50"
+                android:visibility="@{viewModel.status == Status.SUCCESS ? View.VISIBLE : View.GONE}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingStart="30dp"
+                android:paddingEnd="27dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <TextView
+                    android:id="@+id/textView9"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:fontFamily="@font/roboto_condensed_bold"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="24dp"
+                    tools:text="That’s it for “education”!" />
+
+                <TextView
+                    android:id="@+id/textView10"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/roboto_condensed_light"
+                    android:text="@string/try_another_search_now"
+                    android:textColor="@color/colorPrimary"
+                    android:visibility="@{viewModel.status == Status.SUCCESS ? View.VISIBLE : View.GONE}" />
+
+                <Button
+                    android:id="@+id/button3"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="28dp"
+                    android:background="@drawable/bg_button"
+                    android:fontFamily="@font/roboto_condensed_bold"
+                    android:onClick="@{onCLickSearch}"
+                    android:text="@string/button_new_search"
+                    android:textSize="18dp"
+                    android:visibility="@{viewModel.status != Status.LOADING ? View.VISIBLE : View.GONE}" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/progressBar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorPrimary_50"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="@{viewModel.status ==Status.LOADING ? View.VISIBLE : View.GONE, default = gone}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ProgressBar
+                    android:id="@+id/progressBar2"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_condensed_bold"
+                android:text="@string/word_not_found"
+                android:textColor="@color/colorPrimary"
+                android:textSize="32dp"
+                app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:visibility="@{viewModel.status ==Status.ERROR ? View.VISIBLE : View.GONE, default = gone}"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</layout>

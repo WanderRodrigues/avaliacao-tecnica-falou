@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_search_word">
+
+    <fragment
+        android:id="@+id/navigation_search_word"
+        android:name="com.falou.avaliacao_tecnica_falou.ui.search_word.SearchWordFragment"
+        tools:layout="@layout/fragment_search_word" >
+        <action
+            android:id="@+id/action_navigation_search_word_to_navigation_dictionary"
+            app:destination="@id/navigation_dictionary">
+            <argument
+                android:name="word"
+                app:argType="string"/>
+            <argument
+                android:name="language"
+                app:argType="string"/>
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_dictionary"
+        android:name="com.falou.avaliacao_tecnica_falou.ui.dictionary.DictionaryFragment"
+        tools:layout="@layout/fragment_dictionary" >
+
+        <argument
+            android:name="word"
+            app:argType="string"/>
+
+        <argument
+            android:name="language"
+            app:argType="string"/>
+
+        <action
+            android:id="@+id/action_navigation_dictionary_to_navigation_subscribe"
+            app:destination="@id/navigation_subscribe" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_subscribe"
+        android:name="com.falou.avaliacao_tecnica_falou.ui.subscribe.SubscribeFragment"
+        tools:layout="@layout/fragment_subscribe" >
+        <action
+            android:id="@+id/action_navigation_subscribe_to_navigation_search_word"
+            app:destination="@id/navigation_search_word" />
+    </fragment>
+
+
+
+</navigation>
