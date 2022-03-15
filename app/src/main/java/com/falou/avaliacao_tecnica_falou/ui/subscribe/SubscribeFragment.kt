@@ -44,7 +44,7 @@ class SubscribeFragment : Fragment() {
     private fun initListeners() {
 
         binding.onCLickSubscribe = View.OnClickListener {
-            findNavController().navigate(R.id.action_navigation_subscribe_to_navigation_search_word)
+            activity?.finish()
         }
 
     }

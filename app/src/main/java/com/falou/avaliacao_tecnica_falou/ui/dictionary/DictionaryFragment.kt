@@ -11,7 +11,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.falou.avaliacao_tecnica_falou.R
 import com.falou.avaliacao_tecnica_falou.databinding.FragmentDictionaryBinding
-import com.falou.avaliacao_tecnica_falou.ui.dictionary.adapterSenses.AdapterSenses
+import com.falou.avaliacao_tecnica_falou.ui.dictionary.adapterWordAtributes.AdapterWordAtributes
 import org.koin.android.ext.android.inject
 import android.util.Log
 import java.io.IOException
@@ -36,7 +36,7 @@ class DictionaryFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        viewModel.checkWord(args.language, args.word.uppercase())
+        viewModel.checkWord(args.language, args.word.uppercase(), requireContext())
 
         return FragmentDictionaryBinding.inflate(layoutInflater).also {
             binding = it
@@ -62,22 +62,26 @@ class DictionaryFragment : Fragment() {
     }
     private fun initObservers(){
 
-        viewModel.senses.observe(viewLifecycleOwner){ list->
+        viewModel.requestExceeded.observe(viewLifecycleOwner){
+            if (it){
+                findNavController().navigate(R.id.action_navigation_dictionary_to_navigation_subscribe)
+            }
+        }
+
+        viewModel.wordAtributes.observe(viewLifecycleOwner){ list->
             binding.recyclerDictionary.layoutManager = LinearLayoutManager(context)
-            binding.recyclerDictionary.adapter = AdapterSenses(list?: listOf(), requireContext())
+            binding.recyclerDictionary.adapter = AdapterWordAtributes(list?: listOf(), requireContext())
         }
 
     }
     private fun initListeners(){
 
         binding.onCLickSearch = View.OnClickListener {
-            findNavController().navigate(R.id.action_navigation_dictionary_to_navigation_subscribe)
+            findNavController().navigate(R.id.action_navigation_dictionary_to_navigation_search_word)
         }
         binding.imgSound.setOnClickListener {
-            viewModel.pronunciations.observe(viewLifecycleOwner){
-                it.forEach {pronunciation->
-                    reproducePronunciation(pronunciation.audioFile?:"")
-                }
+            viewModel.pronunciation.observe(viewLifecycleOwner){
+                reproducePronunciation(it?.audioFile?:"")
             }
         }
     }

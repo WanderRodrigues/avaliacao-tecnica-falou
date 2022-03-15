@@ -1,4 +1,4 @@
-package com.falou.avaliacao_tecnica_falou.ui.dictionary.adapterSenses.adapterExamples
+package com.falou.avaliacao_tecnica_falou.ui.dictionary.adapterWordAtributes.adapterExamples
 
 import android.view.View
 import android.widget.TextView

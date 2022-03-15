@@ -37,6 +37,9 @@
         <action
             android:id="@+id/action_navigation_dictionary_to_navigation_subscribe"
             app:destination="@id/navigation_subscribe" />
+        <action
+            android:id="@+id/action_navigation_dictionary_to_navigation_search_word"
+            app:destination="@id/navigation_search_word" />
     </fragment>
 
     <fragment

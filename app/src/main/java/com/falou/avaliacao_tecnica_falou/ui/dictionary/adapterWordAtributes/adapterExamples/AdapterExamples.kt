@@ -1,4 +1,4 @@
-package com.falou.avaliacao_tecnica_falou.ui.dictionary.adapterSenses.adapterExamples
+package com.falou.avaliacao_tecnica_falou.ui.dictionary.adapterWordAtributes.adapterExamples
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -9,12 +9,12 @@ import com.falou.avaliacao_tecnica_falou.R
 import com.falou.avaliacao_tecnica_falou.data.model.Examples
 import com.falou.avaliacao_tecnica_falou.data.model.Senses
 
-class AdapterExamples (private val listExamples: List<Examples?>?) : RecyclerView.Adapter<ExamplesViewHolder>() {
+class AdapterExamples (private val listExamples: List<String?>?) : RecyclerView.Adapter<ExamplesViewHolder>() {
 
     override fun onBindViewHolder(holder: ExamplesViewHolder, position: Int) {
         if (listExamples !=null){
             val model = listExamples[position]
-            holder.txtExamples.text = "• "  + model?.text
+            holder.txtExamples.text = "• "  + model
         }
     }
 
