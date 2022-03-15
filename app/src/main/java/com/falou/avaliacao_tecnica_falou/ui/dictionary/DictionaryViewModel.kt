@@ -62,27 +62,9 @@ class DictionaryViewModel (
             }.let {
                 it.read({ dictionary->
                     _status.value = Status.SUCCESS
-                    var listWordAtributes : ArrayList<WordAtributes> = ArrayList()
-                    _word.value = dictionary.word?:""
-                    dictionary.results?.forEach { results ->
-                        results.lexicalEntries.forEach { lexicalEntries ->
-                            lexicalEntries.entries.forEach { entries ->
-                                entries.senses.forEach { senses->
-                                    senses.definitions?.forEach { definition->
-                                        var listExamples : ArrayList<String> = ArrayList()
-                                        senses.examples?.forEach {example->
-                                            listExamples.add(example.text!!)
-                                        }
-                                        listWordAtributes?.add(WordAtributes(definition, listExamples))
-                                    }
-                                }
-                                _wordAtributes.value = listWordAtributes
-                                if (entries.pronunciations!=null){
-                                    _pronunciation.value = entries.pronunciations.firstOrNull()
-                                }
-                            }
-                        }
-                    }
+
+                    loadData(dictionary)
+
                     populateTextView()
                     saveNewWord(context)
 
@@ -96,7 +78,7 @@ class DictionaryViewModel (
         }
     }
 
-    fun saveNewWord(context: Context) = viewModelScope.launch{
+    private fun saveNewWord(context: Context) = viewModelScope.launch{
         RequisitionBO(context).addRequisition()
         WordBO(context).saveWordSearched(
             word.value?:"",
@@ -128,7 +110,31 @@ class DictionaryViewModel (
         }
     }
 
-    fun populateTextView(){
+    private fun loadData(dictionary: Dictionary){
+        var listWordAtributes : ArrayList<WordAtributes> = ArrayList()
+        _word.value = dictionary.word?:""
+        dictionary.results?.forEach { results ->
+            results.lexicalEntries.forEach { lexicalEntries ->
+                lexicalEntries.entries.forEach { entries ->
+                    entries.senses.forEach { senses->
+                        senses.definitions?.forEach { definition->
+                            var listExamples : ArrayList<String> = ArrayList()
+                            senses.examples?.forEach {example->
+                                listExamples.add(example.text!!)
+                            }
+                            listWordAtributes?.add(WordAtributes(definition, listExamples))
+                        }
+                    }
+                    _wordAtributes.value = listWordAtributes
+                    if (entries.pronunciations!=null){
+                        _pronunciation.value = entries.pronunciations.firstOrNull()
+                    }
+                }
+            }
+        }
+    }
+
+    private fun populateTextView(){
         if (!word.value.isNullOrEmpty()){
             _title.value = word.value
         }
